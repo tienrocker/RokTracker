@@ -1,1 +1,4 @@
 /platform-tools
+/*.png
+/*.xls
+/binary

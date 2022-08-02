@@ -220,19 +220,19 @@ for i in range(j,search_range):
 	with open(('kills_tier.png'), 'wb') as f:
 				f.write(image)
 	image2 = cv2.imread('kills_tier.png',cv2.IMREAD_GRAYSCALE)
-	roi = (867, 591, 215, 28) #tier 1
+	roi = (860, 595, 215, 28) #tier 1
 	im_kills_tier1 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 
-	roi = (867, 636, 215, 26) #tier 2
+	roi = (861, 640, 215, 26) #tier 2
 	im_kills_tier2 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 
-	roi = (867, 681, 215, 26) #tier 3
+	roi = (861, 685, 215, 26) #tier 3
 	im_kills_tier3 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 
-	roi = (867, 726, 215, 26) #tier 4
+	roi = (861, 730, 215, 26) #tier 4
 	im_kills_tier4 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 
-	roi = (867, 771, 215, 26) #tier 5
+	roi = (861, 775, 215, 26) #tier 5
 	im_kills_tier5 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 
 	#More info tab
@@ -309,7 +309,7 @@ for i in range(j,search_range):
 		else:
 			gov_rss_assistance= gov_rss_assistance2
 
-	print('Governor ID: ' + gov_id + 'Governor Name: ' + gov_name + '\nGovernor Power: ' + gov_power + 'Governor Killpoints: ' + gov_killpoints + 'Tier 1 kills: ' + gov_kills_tier1 + 'Tier 2 kills: ' + gov_kills_tier2 + 'Tier 3 kills: ' + gov_kills_tier3 + 'Tier 4 kills: ' +  gov_kills_tier4 + 'Tier 5 kills: ' + gov_kills_tier5 + 'Governor Dead Troops: ' + gov_dead + 'Governor RSS Assistance: ' + gov_rss_assistance)
+	print('Index: ' + i + 'Governor ID: ' + gov_id + 'Governor Name: ' + gov_name + '\nGovernor Power: ' + gov_power + 'Governor Killpoints: ' + gov_killpoints + 'Tier 1 kills: ' + gov_kills_tier1 + 'Tier 2 kills: ' + gov_kills_tier2 + 'Tier 3 kills: ' + gov_kills_tier3 + 'Tier 4 kills: ' +  gov_kills_tier4 + 'Tier 5 kills: ' + gov_kills_tier5 + 'Governor Dead Troops: ' + gov_dead + 'Governor RSS Assistance: ' + gov_rss_assistance)
 	  
 	device.shell(f'input tap 1396 58') #close more info
 	time.sleep(0.5)
