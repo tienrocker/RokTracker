@@ -31,66 +31,71 @@ def resource_path(relative_path):
 os.system("")
 
 
-#######Tkinter Section
-#Create input gui
-root=tk.Tk()
+# #######Tkinter Section
+# #Create input gui
+# root=tk.Tk()
 
-#Tkinter title
-root.title('RokTracker')
+# #Tkinter title
+# root.title('RokTracker')
 
-#Tkinter window size
-root.geometry("300x250")
+# #Tkinter window size
+# root.geometry("300x250")
 
-#Initialize Options for dropdown box
-OPTIONS = []
-for i in range(38):
-	OPTIONS.append(50+i*25)
+# #Initialize Options for dropdown box
+# OPTIONS = []
+# for i in range(38):
+# 	OPTIONS.append(50+i*25)
 	
-#Variables
-variable = tk.StringVar(root)
-variable.set('')
-variable2 = tk.IntVar(root)
-variable2.set(OPTIONS[0]) # default value
-var1 = tk.IntVar()
+# #Variables
+# variable = tk.StringVar(root)
+# variable.set('')
+# variable2 = tk.IntVar(root)
+# variable2.set(OPTIONS[0]) # default value
+# var1 = tk.IntVar()
 
-#Labels
-kingdom_label = tk.Label(root, text = 'Kingdom', font=('calibre',10, 'bold'))  
-search_top_label = tk.Label(root, text = 'Search Amount', font=('calibre',10, 'bold'))
-#Copyrights
-copyright=u"\u00A9"
-l1=tk.Label(root,text=copyright + ' nikolakis1919', font = ('calibre',10,'bold')) 
+# #Labels
+# kingdom_label = tk.Label(root, text = 'Kingdom', font=('calibre',10, 'bold'))  
+# search_top_label = tk.Label(root, text = 'Search Amount', font=('calibre',10, 'bold'))
+# #Copyrights
+# copyright=u"\u00A9"
+# l1=tk.Label(root,text=copyright + ' nikolakis1919', font = ('calibre',10,'bold')) 
 
-#Input Fields
-kingdom_entry = tk.Entry(root,textvariable = variable, font=('calibre',10,'normal'))
-w = tk.OptionMenu(root, variable2, *OPTIONS)
-resume_scan =tk.Checkbutton(root, text="Resume Scan", variable=var1, font=('calibre',10,'bold'))
+# #Input Fields
+# kingdom_entry = tk.Entry(root,textvariable = variable, font=('calibre',10,'normal'))
+# w = tk.OptionMenu(root, variable2, *OPTIONS)
+# resume_scan =tk.Checkbutton(root, text="Resume Scan", variable=var1, font=('calibre',10,'bold'))
 
-def search():
-	if variable.get():
-		global kingdom
-		kingdom = variable.get()
-		global search_range
-		search_range = variable2.get()
-		root.destroy()
-		global resume_scanning
-		resume_scanning = var1.get()
-		print("Scanning Started...")
-	else:
-		print("You need to fill Kingdom number!")
-		kingdom_entry.focus_set()
+# def search():
+# 	if variable.get():
+# 		global kingdom
+# 		kingdom = variable.get()
+# 		global search_range
+# 		search_range = variable2.get()
+# 		root.destroy()
+# 		global resume_scanning
+# 		resume_scanning = var1.get()
+# 		print("Scanning Started...")
+# 	else:
+# 		print("You need to fill Kingdom number!")
+# 		kingdom_entry.focus_set()
 		
-button = tk.Button(root, text="Search", command=search)
+# button = tk.Button(root, text="Search", command=search)
 
 #Positions in tkinter Grid
-kingdom_label.grid(row=0,column=0)
-kingdom_entry.grid(row=0,column=1)
-search_top_label.grid(row=1,column=0)
-w.grid(row=1,column=1)
-resume_scan.grid(row=2,column=1,pady=4)
-button.grid(row=3,column=1,pady=5)
-l1.grid(row=4,column=1,pady=10)
+# kingdom_label.grid(row=0,column=0)
+# kingdom_entry.grid(row=0,column=1)
+# search_top_label.grid(row=1,column=0)
+# w.grid(row=1,column=1)
+# resume_scan.grid(row=2,column=1,pady=4)
+# button.grid(row=3,column=1,pady=5)
+# l1.grid(row=4,column=1,pady=10)
 
-root.mainloop()
+kingdom = "1509"
+search_range = 200
+resume_scanning = False
+print("Scanning Started...")
+
+# root.mainloop()
 
 #######RokTracker
 #Initialize the connection to adb
@@ -165,7 +170,8 @@ for i in range(j,search_range):
 	gov_rss_assistance = 0
 	#Open governor
 	device.shell(f'input tap 690 ' + str(Y[k]))
-	time.sleep(2)
+	# time.sleep(2)
+	time.sleep(1)
 	gov_info = False
 	while not (gov_info):
 		image_check = device.screencap()
@@ -178,14 +184,16 @@ for i in range(j,search_range):
 		if 'MoreInfo' not in check_more_info :
 			device.shell(f'input swipe 690 605 690 540')
 			device.shell(f'input tap 690 ' + str(Y[k]))
-			time.sleep(2)
+			# time.sleep(2)
+			time.sleep(1)
 		else:
 			gov_info = True
 			break
 	
 	#nickname copy
 	device.shell(f'input tap 690 283')
-	time.sleep(2)
+	# time.sleep(2)
+	time.sleep(1)
 	image = device.screencap()
 	with open(('gov_info.png'), 'wb') as f:
 				f.write(image)
