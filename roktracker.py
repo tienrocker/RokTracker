@@ -12,6 +12,7 @@ from xlwt import Workbook
 from datetime import date
 import tkinter as tk
 import keyboard
+import re
 
 def tointcheck(element):
 	try:
@@ -211,6 +212,7 @@ for i in range(j,search_range):
 	
 	#kills tier
 	device.shell(f'input tap 1118 350')
+	time.sleep(0.5)
 	
 	#1st image data
 	gov_id = pytesseract.image_to_string(im_gov_id,config="-c tessedit_char_whitelist=0123456789")
@@ -276,40 +278,73 @@ for i in range(j,search_range):
 	gov_rss_assistance = pytesseract.image_to_string(im_rss_assistance,config="-c tessedit_char_whitelist=0123456789")
 	gov_rss_assistance2 = pytesseract.image_to_string(im_rss_assistance2,config="-c tessedit_char_whitelist=0123456789")
 	gov_rss_assistance3 = pytesseract.image_to_string(im_rss_assistance3,config="-c tessedit_char_whitelist=0123456789")
+
+	gov_id = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_id)
+	gov_power = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_power)
+	gov_killpoints = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_killpoints)
+	gov_dead = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_dead)
+	gov_dead2 = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_dead2)
+	gov_dead3 = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_dead3)
+	gov_kills_tier1 = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_kills_tier1)
+	gov_kills_tier2 = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_kills_tier2)
+	gov_kills_tier3 = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_kills_tier3)
+	gov_kills_tier4 = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_kills_tier4)
+	gov_kills_tier5 = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_kills_tier5)
+	gov_rss_assistance = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_rss_assistance)
+	gov_rss_assistance2 = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_rss_assistance2)
+	gov_rss_assistance3 = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_rss_assistance3)
 	
+	if gov_id == '' or gov_power == '' or gov_killpoints == '' or gov_dead == '' or gov_dead2 == '' or gov_dead3 == '' or gov_kills_tier1 == '' or gov_kills_tier2 == '' or gov_kills_tier3 == '' or gov_kills_tier4 == '' or gov_kills_tier5 == '' or gov_rss_assistance == '' or gov_rss_assistance2 == '' or gov_rss_assistance3 == '':
+		cv2.imwrite('im_gov_id.png', im_gov_id)
+		cv2.imwrite('im_gov_power.png', im_gov_power)
+		cv2.imwrite('im_gov_killpoints.png', im_gov_killpoints)
+		cv2.imwrite('im_dead.png', im_dead)
+		cv2.imwrite('im_dead2.png', im_dead2)
+		cv2.imwrite('im_dead3.png', im_dead3)
+		cv2.imwrite('im_kills_tier1.png', im_kills_tier1)
+		cv2.imwrite('im_kills_tier2.png', im_kills_tier2)
+		cv2.imwrite('im_kills_tier3.png', im_kills_tier3)
+		cv2.imwrite('im_kills_tier4.png', im_kills_tier4)
+		cv2.imwrite('im_kills_tier5.png', im_kills_tier5)
+		cv2.imwrite('im_rss_assistance.png', im_rss_assistance)
+		cv2.imwrite('im_rss_assistance2.png', im_rss_assistance2)
+		cv2.imwrite('im_rss_assistance3.png', im_rss_assistance3)
+		print('=== ID: ' + gov_id + '\nName: ' + gov_name + '\nPower: ' + gov_power + '\nKillpoints: ' + gov_killpoints + '\nDead: ' + gov_dead + '\nDead2: ' + gov_dead2 + '\nDead3: ' + gov_dead3 + '\nTier 1 kills: ' + gov_kills_tier1 +'\nTier 2 kills: ' + gov_kills_tier2 +'\nTier 3 kills: ' + gov_kills_tier3 +'\nTier 4 kills: ' +  gov_kills_tier4 +'\nTier 5 kills: ' + gov_kills_tier5 +'\nRSS: ' + gov_rss_assistance + '\nRSS2: ' + gov_rss_assistance2 + '\nRSS3: ' + gov_rss_assistance3 + ' ===')
+		os.system('pause')
+
 	#Just to check the progress, printing in cmd the result for each governor
 	if gov_power == '':
-		gov_power = '0\n'
+		gov_power = '0'
 	if gov_killpoints =='':
-		gov_killpoints = '0\n'
+		gov_killpoints = '0'
 	if gov_dead == '' :
 		if gov_dead2 == '':
 			if gov_dead3 =='':
-				gov_dead = '0\n'
+				gov_dead = '0'
 			else:			
 				gov_dead = gov_dead3
 		else:
 			gov_dead = gov_dead2
 	if gov_kills_tier1 == '' :
-		gov_kills_tier1 = '0\n'
+		gov_kills_tier1 = '0'
 	if gov_kills_tier2 == '' :
-		gov_kills_tier2 = '0\n'
+		gov_kills_tier2 = '0'
 	if gov_kills_tier3 == '' :
-		gov_kills_tier3 = '0\n'
+		gov_kills_tier3 = '0'
 	if gov_kills_tier4 == '' :
-		gov_kills_tier4 = '0\n'
+		gov_kills_tier4 = '0'
 	if gov_kills_tier5 == '' :
-		gov_kills_tier5 = '0\n'
+		gov_kills_tier5 = '0'
 	if gov_rss_assistance == '' :
 		if gov_rss_assistance2 =='':
 			if gov_rss_assistance3 =='':
-				gov_rss_assistance = '0\n'
+				gov_rss_assistance = '0'
 			else: 
 				gov_rss_assistance = gov_rss_assistance3
 		else:
 			gov_rss_assistance= gov_rss_assistance2
 
-	print('Index: ' + str(i) + 'Governor ID: ' + gov_id + 'Governor Name: ' + gov_name + '\nGovernor Power: ' + gov_power + 'Governor Killpoints: ' + gov_killpoints + 'Tier 1 kills: ' + gov_kills_tier1 + 'Tier 2 kills: ' + gov_kills_tier2 + 'Tier 3 kills: ' + gov_kills_tier3 + 'Tier 4 kills: ' +  gov_kills_tier4 + 'Tier 5 kills: ' + gov_kills_tier5 + 'Governor Dead Troops: ' + gov_dead + 'Governor RSS Assistance: ' + gov_rss_assistance)
+	print('Index: ' + str(i+1) + ' ID: ' + gov_id + ' Name: ' + gov_name + ' Power: ' + gov_power + ' Killpoints: ' + gov_killpoints +' Tier 1 kills: ' + gov_kills_tier1 +' Tier 2 kills: ' + gov_kills_tier2 +' Tier 3 kills: ' + gov_kills_tier3 +' Tier 4 kills: ' +  gov_kills_tier4 +'Tier 5 kills: ' + gov_kills_tier5 +' Dead Troops: ' + gov_dead +' RSS: ' + gov_rss_assistance)
 	  
 	device.shell(f'input tap 1396 58') #close more info
 	time.sleep(0.5)
