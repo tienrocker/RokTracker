@@ -30,6 +30,32 @@ def resource_path(relative_path):
     return os.path.join(os.path.abspath("."), relative_path)
 os.system("")
 
+image = cv2.imread('gov_info.png')
+#Power and Killpoints
+roi = (775, 230, 244, 38)
+im_gov_id = image[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
+
+cv2.imwrite('im_gov_id.png', im_gov_id)
+
+image = cv2.imread('gov_info.png',cv2.IMREAD_GRAYSCALE)
+# image = cv2.GaussianBlur(image, (5, 5), 0)
+roi = (890, 364, 170, 44)
+im_gov_power = image[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
+
+cv2.imwrite('im_gov_power.png', im_gov_power)
+
+roi = (1114, 364, 222, 44)
+im_gov_killpoints = image[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
+
+cv2.imwrite('im_gov_killpoints.png', im_gov_killpoints)
+
+gov_id = pytesseract.image_to_string(im_gov_id,config="-c tessedit_char_whitelist=0123456789")
+gov_power = pytesseract.image_to_string(im_gov_power,config="-c tessedit_char_whitelist=0123456789")
+gov_killpoints = pytesseract.image_to_string(im_gov_killpoints,config="-c tessedit_char_whitelist=0123456789")
+
+print('gov_id: ' + gov_id + 'gov_power: ' + gov_power + 'gov_killpoints: ' + gov_killpoints);
+exit
+
 image2 = cv2.imread('kills_tier.png',cv2.IMREAD_GRAYSCALE)
 roi = (860, 595, 215, 28) #tier 1
 im_kills_tier1 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
