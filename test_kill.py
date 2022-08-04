@@ -19,7 +19,7 @@ def tointcheck(element):
 		return int(element)
 	except ValueError:
 		return element
-	
+
 #Initiliaze paths and variables
 today = date.today()
 
@@ -30,6 +30,23 @@ def resource_path(relative_path):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 os.system("")
+
+
+im_gov_id = cv2.imread('im_gov_id.png')
+gov_id = pytesseract.image_to_string(im_gov_id, config="-c tessedit_char_whitelist=0123456789")
+gov_id = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_id)
+print(gov_id)
+
+im_gov_id = cv2.imread('im_gov_id.png',cv2.IMREAD_GRAYSCALE)
+im_gov_id = cv2.threshold(im_gov_id, 127, 255, cv2.THRESH_BINARY)[1]
+cv2.imwrite('im_gov_id_threshold.png', im_gov_id)
+
+gov_id = pytesseract.image_to_string(im_gov_id, config="-c tessedit_char_whitelist=0123456789")
+gov_id = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_id)
+
+
+print(gov_id)
+os.system('pause')
 
 image3 = cv2.imread('more_info.png',cv2.IMREAD_GRAYSCALE)
 

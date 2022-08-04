@@ -24,6 +24,7 @@ def tointcheck(element):
 today = date.today()
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe' #Change to your installation path folder.
+thresh = 127
 
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
@@ -202,6 +203,7 @@ for i in range(j,search_range):
 	#Power and Killpoints
 	roi = (775, 230, 244, 38)
 	im_gov_id = image[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
+	cv2.imwrite('im_gov_id.png', im_gov_id)
 	image = cv2.imread('gov_info.png',cv2.IMREAD_GRAYSCALE)
 	# image = cv2.GaussianBlur(image, (5, 5), 0)
 	roi = (890, 364, 170, 44)
@@ -215,9 +217,29 @@ for i in range(j,search_range):
 	time.sleep(0.5)
 	
 	#1st image data
+	# ID
 	gov_id = pytesseract.image_to_string(im_gov_id,config="-c tessedit_char_whitelist=0123456789")
+	gov_id = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_id)
+
+	if str(gov_id) == '' or len(str(gov_id)) < 5:
+		im_gov_id = cv2.imread('im_gov_id.png',cv2.IMREAD_GRAYSCALE)
+		im_gov_id = cv2.threshold(im_gov_id, thresh, 255, cv2.THRESH_BINARY)[1]
+		gov_id = pytesseract.image_to_string(im_gov_id, config="-c tessedit_char_whitelist=0123456789")
+
+	# power
 	gov_power = pytesseract.image_to_string(im_gov_power,config="-c tessedit_char_whitelist=0123456789")
+	gov_power = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_power)
+	if str(gov_power) == '':
+		im_gov_power = cv2.GaussianBlur(im_gov_power, (5, 5), 0)
+		gov_power = pytesseract.image_to_string(im_gov_power, config="-c tessedit_char_whitelist=0123456789")
+
+	# kill points
 	gov_killpoints = pytesseract.image_to_string(im_gov_killpoints,config="-c tessedit_char_whitelist=0123456789")
+	gov_killpoints = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', gov_killpoints)
+	if str(gov_killpoints) == '':
+		im_gov_killpoints = cv2.GaussianBlur(im_gov_killpoints, (5, 5), 0)
+		gov_killpoints = pytesseract.image_to_string(im_gov_killpoints, config="-c tessedit_char_whitelist=0123456789")
+
 	image = device.screencap()
 	with open(('kills_tier.png'), 'wb') as f:
 				f.write(image)
@@ -258,7 +280,6 @@ for i in range(j,search_range):
 	
 	#2nd check for deads with more filters to avoid some errors
 	roi = (1130, 443, 183, 40) #dead
-	thresh = 127
 	thresh_image = cv2.threshold(image3, thresh, 255, cv2.THRESH_BINARY)[1]
 	im_dead2 = thresh_image[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 	roi = (1130, 668, 183, 40) #rss assistance
@@ -310,7 +331,7 @@ for i in range(j,search_range):
 		cv2.imwrite('im_rss_assistance2.png', im_rss_assistance2)
 		cv2.imwrite('im_rss_assistance3.png', im_rss_assistance3)
 		print('=== ID: ' + gov_id + '\nName: ' + gov_name + '\nPower: ' + gov_power + '\nKillpoints: ' + gov_killpoints + '\nDead: ' + gov_dead + '\nDead2: ' + gov_dead2 + '\nDead3: ' + gov_dead3 + '\nTier 1 kills: ' + gov_kills_tier1 +'\nTier 2 kills: ' + gov_kills_tier2 +'\nTier 3 kills: ' + gov_kills_tier3 +'\nTier 4 kills: ' +  gov_kills_tier4 +'\nTier 5 kills: ' + gov_kills_tier5 +'\nRSS: ' + gov_rss_assistance + '\nRSS2: ' + gov_rss_assistance2 + '\nRSS3: ' + gov_rss_assistance3 + ' ===')
-		os.system('pause')
+		#os.system('pause')
 
 	#Just to check the progress, printing in cmd the result for each governor
 	if gov_power == '':
@@ -344,7 +365,7 @@ for i in range(j,search_range):
 		else:
 			gov_rss_assistance= gov_rss_assistance2
 
-	print('Index: ' + str(i+1) + ' ID: ' + gov_id + ' Name: ' + gov_name + ' Power: ' + gov_power + ' Killpoints: ' + gov_killpoints +' Tier 1 kills: ' + gov_kills_tier1 +' Tier 2 kills: ' + gov_kills_tier2 +' Tier 3 kills: ' + gov_kills_tier3 +' Tier 4 kills: ' +  gov_kills_tier4 +'Tier 5 kills: ' + gov_kills_tier5 +' Dead Troops: ' + gov_dead +' RSS: ' + gov_rss_assistance)
+	#print('Index: ' + str(i+1) + ' ID: ' + gov_id + ' Name: ' + gov_name + ' Power: ' + gov_power + ' Killpoints: ' + gov_killpoints +' Tier 1 kills: ' + gov_kills_tier1 +' Tier 2 kills: ' + gov_kills_tier2 +' Tier 3 kills: ' + gov_kills_tier3 +' Tier 4 kills: ' +  gov_kills_tier4 +'Tier 5 kills: ' + gov_kills_tier5 +' Dead Troops: ' + gov_dead +' RSS: ' + gov_rss_assistance)
 	  
 	device.shell(f'input tap 1396 58') #close more info
 	time.sleep(0.5)
