@@ -13,6 +13,6 @@ for key, value in config_parser.items(dummy):
         key_port = key.replace("display_name", "status.adb_port")
         port = config_parser.get(dummy, key_port)
         # print(port)
-        os.system(".\\roktracker.bat " + port)
+        os.system(".\\roktracker_1676.bat " + port)
 
 os.system("")

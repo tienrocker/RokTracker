@@ -40,11 +40,11 @@ def image_to_string(img, name = 'img'):
 	val3 = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\xff-\n]', '', val3)
 	val3 = convertToInt(val3)
 
-	if debug:
-		cv2.imwrite(name + '1.png', img)
-		cv2.imwrite(name + '2.png', thresh_image)
-		cv2.imwrite(name + '3.png', blur_img)
-		print('{0} 1: \t{1:,}\n{2} 2: \t{3:,}\n{4} 3: \t{5:,}'.format(name, val, name, val2, name, val3))
+	# if debug:
+	# 	cv2.imwrite(name + '1.png', img)
+	# 	cv2.imwrite(name + '2.png', thresh_image)
+	# 	cv2.imwrite(name + '3.png', blur_img)
+	# 	print('{0} 1: \t{1:,}\n{2} 2: \t{3:,}\n{4} 3: \t{5:,}'.format(name, val, name, val2, name, val3))
 	
 	return max([val, val2, val3])
 	
@@ -89,15 +89,15 @@ gov_killpoints = image_to_string(im_gov_killpoints, 'im_gov_killpoints')
 #kills tier
 image2 = cv2.imread('kills_tier.png')
 
-roi = (860, 595, 215, 28) #tier 1
+roi = (861, 465, 215, 28) #tier 1
 im_kills_tier1 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-roi = (861, 640, 215, 26) #tier 2
+roi = (861, 510, 215, 26) #tier 2
 im_kills_tier2 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-roi = (861, 685, 215, 26) #tier 3
+roi = (861, 555, 215, 26) #tier 3
 im_kills_tier3 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-roi = (861, 730, 215, 26) #tier 4
+roi = (861, 600, 215, 26) #tier 4
 im_kills_tier4 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-roi = (861, 775, 215, 26) #tier 5
+roi = (861, 645, 215, 26) #tier 5
 im_kills_tier5 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 
 #2nd image data

@@ -249,15 +249,15 @@ for i in range(j,search_range):
 				f.write(image2)
 	image2 = cv2.imread('kills_tier.png')
 
-	roi = (860, 595, 215, 28) #tier 1
+	roi = (861, 465, 215, 28) #tier 1
 	im_kills_tier1 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-	roi = (861, 640, 215, 26) #tier 2
+	roi = (861, 510, 215, 26) #tier 2
 	im_kills_tier2 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-	roi = (861, 685, 215, 26) #tier 3
+	roi = (861, 555, 215, 26) #tier 3
 	im_kills_tier3 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-	roi = (861, 730, 215, 26) #tier 4
+	roi = (861, 600, 215, 26) #tier 4
 	im_kills_tier4 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-	roi = (861, 775, 215, 26) #tier 5
+	roi = (861, 645, 215, 26) #tier 5
 	im_kills_tier5 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 
 	#More info tab
