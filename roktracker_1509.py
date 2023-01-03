@@ -120,7 +120,7 @@ os.system("")
 # button.grid(row=3,column=1,pady=5)
 # l1.grid(row=4,column=1,pady=10)
 
-kingdom = "1676"
+kingdom = "1509"
 search_range = 200
 resume_scanning = False
 print("Scanning Started...")
