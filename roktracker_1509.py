@@ -121,7 +121,7 @@ os.system("")
 # l1.grid(row=4,column=1,pady=10)
 
 kingdom = "1509"
-search_range = 300
+search_range = 200
 resume_scanning = False
 print("Scanning Started...")
 
