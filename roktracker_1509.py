@@ -207,7 +207,7 @@ for i in range(j,search_range):
 		with open(('check_more_info.png'), 'wb') as f:
 					f.write(image_check)
 		image_check = cv2.imread('check_more_info.png',cv2.IMREAD_GRAYSCALE)
-		roi = (313, 727, 137, 29)	#Checking for more info
+		roi = (300, 786, 137, 29)	#Checking for more info
 		im_check_more_info = image_check[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 		check_more_info = pytesseract.image_to_string(im_check_more_info,config="-c tessedit_char_whitelist=MoreInfo")
 
@@ -230,16 +230,16 @@ for i in range(j,search_range):
 				f.write(image)
 	image = cv2.imread('gov_info.png')
 	#Power and Killpoints
-	roi = (775, 230, 244, 38)
+	roi = (732, 191, 244, 38)
 	im_gov_id = image[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-	roi = (890, 364, 170, 44)
+	roi = (880, 328, 190, 44)
 	im_gov_power = image[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-	roi = (1114, 364, 222, 44)
+	roi = (1128, 328, 222, 44)
 	im_gov_killpoints = image[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 	gov_name = tk.Tk().clipboard_get()
 	
 	#kills tier
-	device.shell(f'input tap 1118 350')
+	device.shell(f'input tap 1118 316')
 	time.sleep(0.5)
 	
 	#1st image data
@@ -255,19 +255,19 @@ for i in range(j,search_range):
 				f.write(image2)
 	image2 = cv2.imread('kills_tier.png')
 
-	roi = (861, 465, 215, 28) #tier 1
+	roi = (861, 428, 215, 28) #tier 1
 	im_kills_tier1 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-	roi = (861, 510, 215, 26) #tier 2
+	roi = (861, 473, 215, 26) #tier 2
 	im_kills_tier2 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-	roi = (861, 555, 215, 26) #tier 3
+	roi = (861, 518, 215, 26) #tier 3
 	im_kills_tier3 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-	roi = (861, 600, 215, 26) #tier 4
+	roi = (861, 563, 215, 26) #tier 4
 	im_kills_tier4 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
-	roi = (861, 645, 215, 26) #tier 5
+	roi = (861, 608, 215, 26) #tier 5
 	im_kills_tier5 = image2[int(roi[1]):int(roi[1]+roi[3]), int(roi[0]):int(roi[0]+roi[2])]
 
 	#More info tab
-	device.shell(f'input tap 387 664')
+	device.shell(f'input tap 352 740')
 	time.sleep(0.5)
 
 	#2nd image data
